@@ -1,0 +1,35 @@
+﻿<Page x:Class="Book.Resourses.Pages.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Book.Resourses.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Login">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Width="250" Height="100" Source="/Resourses/Images/icon.png"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Авторизация" FontSize="30"/>
+            <TextBlock Text="Введите логин"/>
+            <TextBox x:Name="loginI" Width="200"/>
+
+            <TextBlock Text="Введите пароль"/>
+            <TextBox x:Name="passwordI" Width="200"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Войти" Width="100" Click="LoginBtn_Click"/>
+                <Button Content="Гостевой" Width="100" Click="GuestLogin_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

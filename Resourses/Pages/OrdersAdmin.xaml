@@ -1,0 +1,103 @@
+﻿<Page x:Class="Book.Resourses.Pages.OrdersAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Book.Resourses.Pages"
+      mc:Ignorable="d" 
+      Loaded="Page_Loaded"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OrdersAdmin">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Выход" Width="100" Height="25" HorizontalAlignment="Left" Margin="0 0 0 0" Click="LogOut_Click"/>
+            <TextBlock Grid.Column="1" x:Name="NameUser" Text="Имя" HorizontalAlignment="Right"/>
+        </Grid>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Вернуться назад" Click="Back_Click"/>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Добавить" Click="Add_Click" Margin="5"/>
+                <Button Content="Удалить" Click="Delete_Click" Margin="5"/>
+            </StackPanel>
+        </Grid>
+
+        <DataGrid x:Name="OrdersGrid" MouseDoubleClick="OrdersGrid_MouseDoubleClick" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10" Grid.Row="2">
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Информация о заказе" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+
+                                <TextBlock FontSize="14">
+                                    <Run Text="Артикул заказа: "/>
+                                    <Run Text="Артикул не дали("/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                                    <Run Text="Статус: "/>
+                                    <Run Text="{Binding Statuses.name}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                                    <Run Text="Адрес: "/>
+                                    <Run Text="{Binding Addresses.address_index}"/>
+                                    <Run Text=","/>
+                                    <Run Text="{Binding Addresses.city}"/>
+                                    <Run Text=","/>
+                                    <Run Text="{Binding Addresses.street}"/>
+                                    <Run Text=","/>
+                                    <Run Text="{Binding Addresses.building}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                                    <Run Text="Дата заказа: "/>
+                                    <Run Text="{Binding date_order}"/>
+                                </TextBlock>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Дата доставки" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="5">
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Run Text="{Binding date_pickup}"/>
+                                    </TextBlock>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

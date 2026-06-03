@@ -1,0 +1,149 @@
+﻿<Page x:Class="Book.Resourses.Pages.CatalogGuest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Book.Resourses.Pages"
+      mc:Ignorable="d" 
+      Loaded="Page_Loaded"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CatalogGuest">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Выход" Click="GoBack_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding Products}" x:Name="CatalogDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10" Grid.Row="2">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                            <Setter Property="Background" Value="#d9d9d9"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding BigSale}" Value="True">
+                            <Setter Property="Background" Value="#23E1EF"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фото" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding FullImagePath}" Width="100" Height="100"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Товар" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+
+                                <TextBlock FontWeight="Bold" FontSize="14">
+                            <Run Text="{Binding Categories.name}"/>
+                            <Run Text="|"/>
+                            <Run Text="{Binding name}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                            <Run Text="Описание товара:"/>
+                            <Run Text="{Binding description}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                            <Run Text="Производитель:"/>
+                            <Run Text="{Binding Providers.name}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                            <Run Text="Поставщик:"/>
+                            <Run Text="{Binding Manufacturers.name}"/>
+                                </TextBlock>
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock Text="Цена: "/>
+
+                                    <!-- старая цена -->
+                                    <TextBlock Text="{Binding price}" Foreground="Red">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextDecorations" Value="{x:Null}"/>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasSale}" Value="True">
+                                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- новая цена -->
+                                    <TextBlock Text="{Binding NewPrice}" Margin="5,0,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasSale}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                </StackPanel>
+
+                                <TextBlock FontSize="14">
+                            <Run Text="Еденица измерения:"/>
+                            <Run Text="{Binding Units.name}"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="14">
+                            <Run Text="Количество на складе:"/>
+                            <Run Text="{Binding quantity}"/>
+                                </TextBlock>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Скидка" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock FontSize="16">
+                            <Run Text="{Binding sale}"/>
+                            <Run Text="%"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</Page>
